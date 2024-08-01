@@ -43,6 +43,7 @@ enum tokenCode{
 	TK_SEMOCOLOM,	//;
     TK_COLON, //:
     TK_COLONS, //::
+    TK_QUE, //"
 
     TK_INT,
     TK_DOUBLE,
@@ -100,6 +101,7 @@ void print(tokenCode code){
 	case TK_SEMOCOLOM:	//;
     case TK_COLON:     // :
     case TK_COLONS:   // ::
+    case TK_QUE:
 		SetConsoleTextAttribute(GetStdHandle(STD_OUTPUT_HANDLE), FOREGROUND_INTENSITY | FOREGROUND_GREEN);	//运算符和分隔符为绿色
 		break;
     
@@ -298,6 +300,20 @@ void lexicalAnalysis(FILE *fp)
 			}else{
                 code = TK_COLON;
                 fseek(fp, -1L, SEEK_CUR);
+            }
+		}
+		break;
+        case '"':
+		{
+            int _temp=0;
+            while(true){
+                ch = fgetc(fp);
+                // cout<<ch<<endl;
+                if(ch == '"'){
+                    token.push_back(ch);
+                    code=TK_QUE;
+                    break;
+                }
             }
 		}
 		break;
