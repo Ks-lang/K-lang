@@ -1,4 +1,4 @@
 int main(){
-    cout<<"main";
+    print("main");
     return 0;
 }
